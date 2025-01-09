@@ -5,8 +5,8 @@ namespace RangoAgil.API.Context
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
-        DbSet<Ingredient> Ingredients { get; set; } = null!;
-        DbSet<Rango> Rangos { get; set; } = null!;
+        public DbSet<Ingredient> Ingredients { get; set; } = null!;
+        public DbSet<Rango> Rangos { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
