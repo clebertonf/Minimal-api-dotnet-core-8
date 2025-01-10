@@ -10,5 +10,7 @@ public class RangoAgilProfile : Profile
     {
         CreateMap<Ingredient, IngredientDTO>().ReverseMap();
         CreateMap<Rango, RangoDTO>().ReverseMap();
+        CreateMap<Rango, RangoCreationDTO>().ReverseMap();
+        CreateMap<Rango, RangoUpdateDTO>().ReverseMap();
     }
 }
