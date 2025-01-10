@@ -18,7 +18,16 @@ public static class EndpointRouteBuilderExtensions
 
     public static void RegisterIngredientEnpoints(this IEndpointRouteBuilder endpoints)
     {
+        var baseIngredients = endpoints.MapGroup("/ingredients");
+        var baseIngredientsWithId = baseIngredients.MapGroup("/{id:int}");
+        
+        baseIngredients.MapGet("", IngredientHandlers.GetIngredientsAsync);
+        baseIngredientsWithId.MapGet("", IngredientHandlers.GetIngredientByIdAsync).WithName("GetIngredient");
+        baseIngredients.MapPost("", IngredientHandlers.CreateIngredient);
+        baseIngredientsWithId.MapPut("", IngredientHandlers.UpdateIngredient);
+        baseIngredientsWithId.MapDelete("", IngredientHandlers.DeleteIngredient);
+        
         var baseWhitIngredients = endpoints.MapGroup("/rangos/{id:int}/ingredients");
-        baseWhitIngredients.MapGet("", IngredientHandlers.GetIngredientsAsync);
+        baseWhitIngredients.MapGet("", IngredientHandlers.GetRangosWhithIngredientsAsync);
     }
 }
