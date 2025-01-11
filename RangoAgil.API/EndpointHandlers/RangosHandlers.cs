@@ -10,15 +10,18 @@ namespace RangoAgil.API.EndpointHandlers;
 
 public static class RangosHandlers
 {
-    public static async Task<Results<NoContent, Ok<IEnumerable<RangoDTO>>>> GetRangosAsync (ApplicationDbContext context, IMapper mapper, [FromQuery(Name = "name")]string? name)
+    public static async Task<Results<NoContent, Ok<IEnumerable<RangoDTO>>>> GetRangosAsync (ApplicationDbContext context, IMapper mapper, [FromQuery(Name = "name")]string? name, ILogger<RangoDTO> logger)
     {
         var rangosEntity = await context.Rangos
             .Where(x => name == null || x.Name.ToLower().Contains(name.ToLower()))
             .ToListAsync();
 
         if (rangosEntity.Count <= 0)
+        {
+            logger.LogInformation("No rangos found.");
             return TypedResults.NoContent();
-    
+        }
+        
         return TypedResults.Ok(mapper.Map<IEnumerable<RangoDTO>>(rangosEntity));
     }
     
