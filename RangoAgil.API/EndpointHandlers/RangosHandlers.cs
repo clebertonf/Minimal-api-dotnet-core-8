@@ -48,7 +48,7 @@ public static class RangosHandlers
         return TypedResults.CreatedAtRoute(result, "GetRango", new { id = rangoEntity.Id });
     }
     
-    public static async Task<Results<NotFound, Ok>> UpdateRango(ApplicationDbContext context, IMapper mapper, int id, [FromBody] RangoUpdateDTO rangoUpdate)
+    public static async Task<Results<NotFound, Ok>> UpdateRango(ApplicationDbContext context, int id, IMapper mapper, [FromBody] RangoUpdateDTO rangoUpdate)
     {
         var rangoEntity = await context.Rangos.FirstOrDefaultAsync(r => r.Id == id);
         if (rangoEntity is null)
