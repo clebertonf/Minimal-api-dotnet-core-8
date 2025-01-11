@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RangoAgil.API.Context;
@@ -9,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add db context EF core
 builder.Services.AddDbContext<ApplicationDbContext>(
     o => o.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// AspNETCore Identity example
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 // add automapper
 builder.Services.AddAutoMapper(typeof(RangoAgilProfile));
 

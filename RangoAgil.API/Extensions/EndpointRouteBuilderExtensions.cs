@@ -1,4 +1,5 @@
-﻿using RangoAgil.API.EndpointFilters;
+﻿using Microsoft.AspNetCore.Identity;
+using RangoAgil.API.EndpointFilters;
 using RangoAgil.API.EndpointHandlers;
 
 namespace RangoAgil.API.Extensions;
@@ -7,6 +8,9 @@ public static class EndpointRouteBuilderExtensions
 {
     public static void RegisterRangosEndpoint(this IEndpointRouteBuilder endpoints)
     {
+        // Config Identity
+        endpoints.MapGroup("/identity/").MapIdentityApi<IdentityUser>();
+        
         var baseRangosEndpoints = endpoints.MapGroup("/rangos").RequireAuthorization();
         var baseWhitIdsEnpoints = baseRangosEndpoints.MapGroup("/{id:int}");
         
